@@ -1,16 +1,3 @@
-{ message: 
-   { operation: 'find',
-     conditions: {},
-     options: { name: /^Tomas/ },
-     transactionDate: 'Monday, June 11, 2018 6:19 PM',
-     duration: '0.007s' },
-  level: 'info',
-  [Symbol(level)]: 'info' }
-{ message: 
-   { operation: 'find',
-     conditions: {},
-     options: { name: /^Tomas/ },
-     transactionDate: 'Monday, June 11, 2018 7:59 PM',
-     duration: '0.005s' },
-  level: 'info',
-  [Symbol(level)]: 'info' }
+{"message":{"operation":"find","conditions":{},"options":{"name":{}},"transactionDate":"Tuesday, June 12, 2018 12:45 PM","duration":"0.012s"},"level":"info"}
+{"message":{"operation":"find","conditions":{},"options":{"name":{}},"transactionDate":"Tuesday, June 12, 2018 12:45 PM","duration":"0.008s"},"level":"info"}
+{"message":{"operation":"find","conditions":{},"options":{"name":{}},"transactionDate":"Tuesday, June 12, 2018 12:45 PM","duration":"0.015s"},"level":"info"}

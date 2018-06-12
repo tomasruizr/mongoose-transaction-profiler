@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 var Mockgoose = require('mockgoose').Mockgoose;
 var mockgoose = new Mockgoose(mongoose);
 { userSchema, userModel, getProfilerData } = require("./testSetup");
+const assert = require('chai').assert;
 const fs = require('fs');
 let logFileName = './profilerLog.log';
 mongoose.connection.on('open', () => {
@@ -23,6 +24,31 @@ const logger = winston.createLogger({
       new winston.transports.File({ filename: logFileName })
   ]
 });
+
+describe('getProfilerData', function() {
+  it('should return an array with the profile data as json', function() {
+    let report;
+    try{
+      report = getProfilerData('./getProfilerData.testlog.log');
+      assert.typeOf(report, 'array');
+      assert.equal(report.length, 3);
+      assert.exists(report[0].message);
+      assert.exists(report[0].level);
+      assert.exists(report[0].message.operation);
+      assert.exists(report[0].message.conditions);
+      assert.exists(report[0].message.);
+      assert.exists(report[0].message.);
+      assert.exists(report[0].message.);
+    } catch (e) {
+      assert(false, e)
+    }
+    
+    
+  });
+  
+});
+
+
 describe('mongo transaction profiler', function() {
   before((done) => {
     mockgoose.prepareStorage().then(function() {
@@ -36,6 +62,7 @@ describe('mongo transaction profiler', function() {
   })
   it('returns an error if no options');
   it('returns an error if no filename or logger defined in options');
+  it('returns an error if filename and logger are defined at the same time in the options');
   let configurations = {filename: {filename: logFileName}, logger: logger};
   Object.keys(configurations)
   .forEach(function (option) {
@@ -47,7 +74,7 @@ describe('mongo transaction profiler', function() {
         let rand, user;
         beforeEach(() => {
           rand = Math.floor(Math.random() * 500);
-          user = createMockModel(userModel, {
+          user = new userModel({
             age: rand,
             name: `Tomas ${rand}`,
             lastName: `Ruiz ${rand}`

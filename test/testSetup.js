@@ -1,3 +1,4 @@
+const fs = require('fs');
 const mongoose = require('mongoose');
 let connString = {
     protocol: 'mongodb',
@@ -18,7 +19,13 @@ const userSchema = new mongoose.Schema({
       type: String
   }
 });
-var userModel = mongoose.model('User', userSchema, 'User');
+const userModel = mongoose.model('User', userSchema, 'User');
+
+async function getProfilerData(filename) {
+    let file = await fs.readFile(filename, 'utf8');
+    file = '[' + file.replace(/\}\s*\{/mig, "},{") + ']';
+    return JSON.parse(file);
+}
 
 
 module.exports = {

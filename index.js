@@ -35,12 +35,18 @@ const profiler = function(options) {
     if (!options || (!options.filename && !options.logger)){
         throw new Error('Mongo Profiler Error: you should provide a "filename" or a winston "logger" for the profiler to work');
     }
+    if (options.filename && options.logger){
+        throw new Error('Mongo Profiler Error: you should provide either a winston logger in the logger property or a filename for the log. Not Both');
+    }
     const logger = options.logger || winston.createLogger({
         level: "silly",
-        // format: winston.format.json(),
-        format: winston.format.prettyPrint(),
+        format: 
+        // winston.format.combine(
+            winston.format.json(),
+            // winston.format.prettyPrint()
+        // ),
         transports: [
-            new winston.transports.File({ filename: options.filename })
+            new winston.transports.File(options)
         ]
     });
     
