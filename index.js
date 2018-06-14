@@ -74,7 +74,7 @@ const postOperation = function (context, timers, logger, limits) {
     let report = timers[key];
     report.conditions = sanitizeRegex(report.conditions);
     report.transactionEnd = Date.now();
-    report.transactionDate = moment(report.transactionStart).format('LLLL');
+    report.transactionDate = moment(report.transactionStart).format('l, h:mm:ss');
     let duration =  (report.transactionEnd - report.transactionStart) / 1000;
     report.duration = duration + 's';
     delete report.transactionEnd;
