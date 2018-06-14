@@ -108,7 +108,7 @@ const profiler = function (options) {
             }
         });
     }
-    options.limits = sortLimits(options.limits) || {
+    options.limits = sortLimits(options.limits) ? sortLimits(options.limits) : {
         debug: 1,
         info: 3,
         warn: 7
