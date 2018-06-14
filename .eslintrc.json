@@ -1,13 +1,10 @@
 {
   "root": true,
   "extends": [
-    "eslint:recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "plugin:vue/essential"
+    "eslint:recommended"
   ],
   "parserOptions": {
-    "ecmaVersion": 7,
+    "ecmaVersion": 8,
     "sourceType": "module"
   },
   "env": {
@@ -17,7 +14,7 @@
     "mocha": true
   },
   "rules": {
-    "no-console": 1,
+    "no-console": 0,
     "semi": ["error", "always"],
     "quotes": ["error", "single", { "allowTemplateLiterals": true }],
     "quote-props": ["error", "consistent-as-needed"]

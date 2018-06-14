@@ -1,2 +1,1 @@
 {"message":{"operation":"find","conditions":{"name":"/^Tomas/"},"options":{},"transactionDate":"Thursday, June 14, 2018 2:45 AM","duration":"0.004s"},"level":"info"}
-{"message":{"operation":"find","conditions":{"name":"/^Tomas/"},"options":{},"transactionDate":"Thursday, June 14, 2018 2:46 AM","duration":"0.004s"},"level":"info"}

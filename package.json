@@ -4,7 +4,7 @@
   "description": "Middleware that writes a log of every transaction to disk with details of conditions, operation, date and duration. Very usefull to check performance",
   "main": "index.js",
   "scripts": {
-    "test": "nyc --reporter=lcov --reporter=text mocha \"./test/**/*.test.js\""
+    "test": "nyc --reporter=lcov --reporter=text mocha --reporter spec \"./test/**/*.test.js\""
   },
   "author": "Tomás Ruiz <tomas.ruiz@globant.com>",
   "license": "ISC",
