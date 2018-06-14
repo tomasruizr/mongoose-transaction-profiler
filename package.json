@@ -6,7 +6,7 @@
   "scripts": {
     "test": "nyc --reporter=lcov --reporter=text mocha --reporter spec \"./test/**/*.test.js\""
   },
-  "author": "Tomás Ruiz <tomas.ruiz@globant.com>",
+  "author": "Tomás Ruiz <tomasruizr@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "moment": "^2.22.2",

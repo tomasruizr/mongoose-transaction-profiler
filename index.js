@@ -1,4 +1,3 @@
-var mongoose = require('mongoose');
 const moment = require('moment');
 const winston = require('winston');
 const util = require('util');
@@ -136,8 +135,7 @@ const profiler = function (options) {
             });
         });
     };
-    mongoose.plugin(middleware);
-    return mongoose;
+    return middleware;
 };
     
     

@@ -6,7 +6,8 @@ const fs = require('fs');
 let logFileName = path.resolve('./test/profilerLog.log');
 
 const getProfilerData = require('../index').getProfilerData;
-require('../index').profiler({filename: logFileName});
+let middleware = require('../index').profiler({filename: logFileName});
+mongoose.plugin(middleware);
 const setup = require('./testSetup');
 
 mongoose.connection.on('open', () => {
