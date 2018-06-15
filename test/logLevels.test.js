@@ -7,14 +7,14 @@ const logFileName = path.resolve('./test/profilerLog.log');
 const MongooseProfiler = require('../index');
 
 let limits = {
-  emerg: 80,
-  alert: 70,
-  crit: 60,
-  error: 50,
-  warning: 40,
-  notice: 30,
+  debug: 10,
   info: 20,
-  debug: 10
+  notice: 30,
+  warning: 40,
+  error: 50,
+  crit: 60,
+  alert: 70,
+  emerg: 80
 };
 
 describe('sortLimits', function() {
@@ -93,13 +93,13 @@ describe('Log Levels', function() {
       warn: new Date() - 5000
     };
     let limits = {
-      debug: 70,
-      error: 60,
-      http: 50,
-      info: 40,
-      silly: 30,
+      warn: 10,
       verbose: 20,
-      warn: 10
+      silly: 30,
+      info: 40,
+      http: 50,
+      error: 60,
+      debug: 70
     };
     MongooseProfiler.postOperation({op: 'debug', _conditions:'', options:'' }, {'"debug"""""': {conditions:{}, transactionStart: starts['debug'] }}, logger, limits);
     MongooseProfiler.postOperation({op: 'error', _conditions:'', options:'' }, {'"error"""""': {conditions:{}, transactionStart: starts['error'] }}, logger, limits);

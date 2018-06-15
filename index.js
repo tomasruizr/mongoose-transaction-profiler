@@ -43,6 +43,7 @@ function getLogLevel(duration, limits = {
         if (limits[logLevels[index]]) {
             if (duration < limits[logLevels[index]]) {
                 method = logLevels[index];
+                break;
             }
         }
     }
@@ -133,7 +134,7 @@ const profiler = function (options) {
         warn: 7
     };
     // Default log level for biggest transaction
-    options.defaultLevel = options.defaultLevel || 'info';
+    options.exceeded = options.exceeded || 'info';
 
     let timers = {};
     const middleware = function mongooseProfiler(schema) {
