@@ -2,7 +2,7 @@ const moment = require('moment');
 const winston = require('winston');
 const util = require('util');
 const fs = require('fs');
-
+let timers = {};
 function sanitizeRegex(conditions) {
     Object.keys(conditions).forEach((prop) => {
         if (conditions[prop].constructor === RegExp) {
@@ -51,7 +51,7 @@ function getLogLevel(duration, limits = {
 }
 
 
-const preOperation = function (context, timers, logger, next) {
+const preOperation = function (context, logger, next) {
     context._conditions = sanitizeRegex(context._conditions);
     let timer = {};
     let key =
@@ -64,32 +64,37 @@ const preOperation = function (context, timers, logger, next) {
     timer.options = context.options;
     timer.transactionStart = Date.now();
     if (timers[key]) {
-        return logger.error({
+        logger.error({
             message: {
                 error: 'The same operation is called more than one time before the first finishes. Only the first one is profiled',
-                operation: context,
+                operation: context.op,
+                options: context.options,
+                conditions: context._conditions,
                 key
             }
         });
+    } else {
+        timers[key] = timer;
     }
-    timers[key] = timer;
     next();
-    return timers;
 };
-const postOperation = function (context, timers, logger, limits) {
+const postOperation = function (context, logger, limits) {
     context._conditions = sanitizeRegex(context._conditions);
     let key =
         JSON.stringify(context.op) +
         JSON.stringify(context.options) +
         JSON.stringify(context._conditions);
     if (!timers[key]) {
-        return logger.error({
+        logger.error({
             message: {
                 error: 'Post Operation without a transaction start.',
-                operation: context,
+                operation: context.op,
+                options: context.options,
+                conditions: context._conditions,
                 key
             }
         });
+        return;
     }
     let report = timers[key];
     report.conditions = sanitizeRegex(report.conditions);
@@ -102,7 +107,6 @@ const postOperation = function (context, timers, logger, limits) {
     delete timers[key];
     let method = getLogLevel(duration, limits);
     logger[method](report);
-    return timers;
 };
 const profiler = function (options) {
     if (!options || (!options.filename && !options.logger)) {
@@ -136,7 +140,7 @@ const profiler = function (options) {
     // Default log level for biggest transaction
     options.exceeded = options.exceeded || 'info';
 
-    let timers = {};
+    
     const middleware = function mongooseProfiler(schema) {
         [
             'count',
@@ -148,10 +152,10 @@ const profiler = function (options) {
             'update'
         ].forEach(function (m) {
             schema.pre(m, function (next) {
-                timers = preOperation(this, timers, logger, next);
+                preOperation(this, logger, next);
             });
             schema.post(m, function () {
-                timers = postOperation(this, timers, logger, options.limits);
+                postOperation(this, logger, options.limits);
             });
         });
     };

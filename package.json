@@ -1,6 +1,6 @@
 {
   "name": "mongoose-transaction-profiler",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Middleware that writes a log of every transaction to disk with details of conditions, operation, date and duration. Very usefull to check performance",
   "main": "index.js",
   "scripts": {
