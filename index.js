@@ -70,6 +70,7 @@ const preOperation = function (context, logger, next) {
                 operation: context.op,
                 options: context.options,
                 conditions: context._conditions,
+                tramsactionDate: moment().format('l, h:mm:ss'),
                 key
             }
         });
@@ -91,6 +92,7 @@ const postOperation = function (context, logger, limits) {
                 operation: context.op,
                 options: context.options,
                 conditions: context._conditions,
+                tramsactionDate: moment().format('l, h:mm:ss'),
                 key
             }
         });
